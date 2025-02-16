@@ -14,7 +14,7 @@ const UserCard = ({user}) => {
     <h2 className="card-title">{firstName+" "+lastName}</h2>
     <p>{about}</p>
     {age && gender && <p>{"Age = "+age+" years"+" , "+"Gender = "+gender}</p>}
-    <p>{skills.join(', ')}</p>
+    {/* //<p>{skills.join(',')}</p> */}
 
     <div className="card-actions justify-center my-4">
       <button className="btn btn-primary">Ignore</button>
