@@ -48,7 +48,7 @@ const Requests = () => {
                 const {_id,firstName, lastName, gender, photoUrl, skills, about, age } = request.fromUserId;
     
                 return(
-                    <div key={_id} className='justify-between items-center flex m-4 p-4 rounded-lg border bg-base-200 w-2/3 mx-auto'>
+                    <div key={_id} className='justify-between items-center flex m-4 p-4 rounded-lg border bg-base-200 w-full mx-auto'>
                         <div>
                             <img alt="photo" className='w-20 h-20 rounded-full' src={photoUrl}/>
                         </div>

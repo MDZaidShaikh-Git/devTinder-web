@@ -13,12 +13,12 @@ const Login = () => {
   const[error, setError] = useState("");
   const[firstName, setFirstName] = useState("");
   const[lastName, setLastName] = useState("");
-  const[isLogin, setIsLogin] = useState(true);
+  const[isLogin, setIsLogin] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit=async()=>{
+  const handleLogin=async()=>{
     try {
       const res = await axios.post(
         BASE_URL+"/signin",
@@ -35,6 +35,16 @@ const Login = () => {
       
     }
 
+  }
+
+  const handleSignUp = async()=>{
+    try {
+      const res = await axios.post( BASE_URL+"/signup",{emailId, password, firstName, lastName},{withCredentials:true})
+      dispatch(addUser(res.data.data))
+      return navigate("/profile")
+    } catch (error) {
+      console.log(error?.response?.data || "Something went wrong") 
+    }
   }
 
   return (
@@ -59,7 +69,7 @@ const Login = () => {
 
           <div className="space-y-4">
          {
-          isLogin && <> <label className="form-control w-full max-w-xs my-4">
+          !isLogin && <> <label className="form-control w-full max-w-xs my-4">
             <div className="label">
               <span className="label-text">First Name</span>
             </div>
@@ -96,7 +106,7 @@ const Login = () => {
           </label>
           <label className="form-control w-full max-w-xs my-4">
             <div className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text" type="password">Password</span>
             </div>
             <input
               type="text"
@@ -109,9 +119,9 @@ const Login = () => {
 
           <p className="text-red-500">{error}</p>
           <div className="card-actions display-flex justify-center">
-            <button className="btn btn-primary" onClick={handleSubmit}>{isLogin?"Login":"SingUp"}</button>
+            <button className="btn btn-primary py-2" onClick={isLogin?handleLogin:handleSignUp}>{isLogin?"Login":"SingUp"}</button>
           </div>
-          <p className="cursor-pointer" onClick={()=>setIsLogin((value)=>!value)}>{isLogin?"New User? Click Here to SignUp":"Have an account? Click here to Login"}</p>
+          <p className="cursor-pointer py-2" onClick={()=>setIsLogin((value)=>!value)}>{isLogin?"New User? Click Here to SignUp":"Have an account? Click here to Login"}</p>
         </div>
       </div>
     </div>
