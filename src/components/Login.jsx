@@ -10,7 +10,11 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const[emailId, setEmailId] = useState("");
   const[password, setPassword] = useState("");
-  const[error, setError] = useState("");  
+  const[error, setError] = useState("");
+  const[firstName, setFirstName] = useState("");
+  const[lastName, setLastName] = useState("");
+  const[isLogin, setIsLogin] = useState(true);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -51,9 +55,34 @@ const Login = () => {
     <div className="flex items-center justify-center p-4">
       <div className="card bg-base-300 w-96 shadow-xl " data-theme="dark">
         <div className="card-body items-center text-center">
-          <h2 className="card-title">Login</h2>
+          <h2 className="card-title">{isLogin?"Login":"SignUp"}</h2>
 
           <div className="space-y-4">
+         {
+          isLogin && <> <label className="form-control w-full max-w-xs my-4">
+            <div className="label">
+              <span className="label-text">First Name</span>
+            </div>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </label>
+          <label className="form-control w-full max-w-xs my-4">
+            <div className="label">
+              <span className="label-text">Last Name</span>
+            </div>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </label>
+          </>
+          }
           <label className="form-control w-full max-w-xs my-4">
             <div className="label">
               <span className="label-text">Email Id</span>
@@ -79,9 +108,10 @@ const Login = () => {
           </div>
 
           <p className="text-red-500">{error}</p>
-          <div className="card-actions">
-            <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
+          <div className="card-actions display-flex justify-center">
+            <button className="btn btn-primary" onClick={handleSubmit}>{isLogin?"Login":"SingUp"}</button>
           </div>
+          <p className="cursor-pointer" onClick={()=>setIsLogin((value)=>!value)}>{isLogin?"New User? Click Here to SignUp":"Have an account? Click here to Login"}</p>
         </div>
       </div>
     </div>
